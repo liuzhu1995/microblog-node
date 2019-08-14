@@ -2,11 +2,17 @@ extends layout
 
 block content
   .jumbotron
-    h1 欢迎来到Microblog
-    p Microblog是一个基于Node.js的微博系统。
-    p
-      a(class='btn btn-primary btn-large' href='/login') 登陆
-      a(class='btn btn-large' href='/register') 立即注册
+    if !user
+      h1 欢迎来到Microblog
+      p Microblog是一个基于Node.js的微博系统。
+        p
+          a(class='btn btn-primary btn-large' href='/login') 登陆
+          a(class='btn btn-large' href='/register') 立即注册
+    else
+      form(class='form-inline justify-content-center')
+        input(class='form-control mr-sm-2 col-sm-6' type='search' aria-label="Search")
+        button(class='btn btn-primary' type="submit") 发言
+
   .row
     .col-lg-4
       h2 丑奴儿 辛弃疾

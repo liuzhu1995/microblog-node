@@ -60,13 +60,33 @@ router.post('/register', function (req, res) {
 
 
 router.get('/login', function (req, res) {
-
+  res.render('login', {title: '用户登陆'});
 });
 router.post('/login', function (req, res) {
-
+  const {username, password} = req.body;
+  //生成口令的散列值
+  const md5 = crypto.createHash('md5');
+  const passwordMd5 = md5.update(password).digest('base64');
+  User.findOne({name: username}, function (err, user) {
+    console.log(user);
+    console.log(passwordMd5 === user.password);
+    if (!user) {
+      req.flash('error', '用户不存在');
+      return res.redirect('/login');
+    }
+    if (user.password !== passwordMd5) {
+      req.flash('error', '用户密码错误');
+      return res.redirect('/login');
+    }
+    req.session.user = user;
+    req.flash('success', '登陆成功');
+    res.redirect('/');
+  })
 });
 router.get('/logout', function (req, res) {
-
+  req.session.user = null;
+  req.flash('success', '退出成功');
+  res.redirect('/');
 });
 
 module.exports = router;
