@@ -15,6 +15,7 @@ router.post('/post', function (req, res) {
 
 });
 //注册
+router.get('/register', checkNotLogin);
 router.get('/register', function (req, res) {
   res.render('reg', {title: '用户注册'})
 });
@@ -59,6 +60,7 @@ router.post('/register', function (req, res) {
 });
 
 
+router.get('/login', checkNotLogin);
 router.get('/login', function (req, res) {
   res.render('login', {title: '用户登陆'});
 });
@@ -83,10 +85,28 @@ router.post('/login', function (req, res) {
     res.redirect('/');
   })
 });
+router.get('/logout', checkLogin);
 router.get('/logout', function (req, res) {
   req.session.user = null;
   req.flash('success', '退出成功');
   res.redirect('/');
 });
+
+
+function checkLogin(req, res, next) {
+  if(!req.session.user) {
+    req.flash('error',  '未登录');
+    return res.redirect('/login');
+  }
+  next();
+}
+
+function checkNotLogin(req, res, next) {
+  if(req.session.user) {
+    res.flash('error', '已登陆');
+    return res.redirect('/');
+  }
+  next();
+}
 
 module.exports = router;
