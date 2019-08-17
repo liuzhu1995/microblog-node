@@ -3,45 +3,36 @@ var router = express.Router();
 
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const Book = mongoose.model('Book');
+const Voicing = mongoose.model('Voicing');
+
+const {checkLogin} = require('../middleware/common');
+
 
 /* GET users listing. */
+router.get('/', checkLogin);
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  // res.redirect('/');
 });
 
-router.get('/test', function (req, res, next) {
-  const user = new User({
-    uid: 1,
-    username: 'Sid'
-  });
-  user.save(function (err) {
-    if(err) {
-      console.log(1);
-      res.end(err);
-      return next();
+router.get('/:user', function (req, res) {
+  User.findOne({name: req.params.user}, function (err, user) {
+    console.log(user, 'user');
+    if(!user) {
+      req.flash('error', '用户不存在');
+      return res.redirect('/');
     }
-    console.log(2);
-    User.find({}, function (err, docs) {
+    Voicing.find({user: user.name}, function (err, data) {
+      console.log(err, data, 777);
       if(err) {
-        console.log(3);
-        res.end(err);
-        return next();
+        req.flash('err', err);
+        return res.redirect('/');
       }
-      res.json(docs)
-    });
-  });
-});
-
-router.get('/:user', function (req, res, next) {
-  console.log(11);
-  Book.find({author: req.params.user}, function (err, docs) {
-    if(err) {
-      res.end('Error');
-      return next();
-    }
-    res.json(docs);
-  });
+      res.render('user', {
+        title: user.name,
+        data
+      })
+    })
+  })
 });
 
 

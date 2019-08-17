@@ -1,0 +1,9 @@
+
+div.row
+    each item, index in data
+        div.col-lg-4
+            h2.
+                #[a(href=`/users/${item.user}`)=item.user] 说
+            p
+                small=item.createTime
+                p=item.value

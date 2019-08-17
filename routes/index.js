@@ -2,25 +2,50 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const Voicing = mongoose.model('Voicing');
 const crypto = require('crypto');
+
+const {checkLogin, checkNotLogin} = require('../middleware/common');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
+
 });
 
 //发表信息
-router.post('/post', function (req, res) {
-
+router.post('/voicing', checkLogin);
+router.post('/voicing', function (req, res) {
+  console.log(req.body, 'req.body');
+  const currentUser = req.session.user;
+  const {value} = req.body;
+  const newVoicing = new Voicing({
+    user: currentUser.name,
+    value: value,
+    createTime: new Date()
+  });
+  newVoicing.save(function (err) {
+    if(err) {
+      req.flash('error', err);
+      return res.redirect('/');
+    }
+    req.flash('success', '发表成功');
+    return res.redirect(`/users/${currentUser.name}`);
+  })
 });
+
+
+
+
 //注册
 router.get('/register', checkNotLogin);
 router.get('/register', function (req, res) {
   res.render('reg', {title: '用户注册'})
 });
+
+
 router.post('/register', function (req, res) {
-  console.log(req.body, 7777);
   //检验用户两次输入的口令是否一致
   if (req.body['password-repeat'] !== req.body['password']) {
     req.flash('error', '两次输入的密码不一致');
@@ -64,6 +89,7 @@ router.get('/login', checkNotLogin);
 router.get('/login', function (req, res) {
   res.render('login', {title: '用户登陆'});
 });
+
 router.post('/login', function (req, res) {
   const {username, password} = req.body;
   //生成口令的散列值
@@ -85,6 +111,9 @@ router.post('/login', function (req, res) {
     res.redirect('/');
   })
 });
+
+
+
 router.get('/logout', checkLogin);
 router.get('/logout', function (req, res) {
   req.session.user = null;
@@ -93,20 +122,5 @@ router.get('/logout', function (req, res) {
 });
 
 
-function checkLogin(req, res, next) {
-  if(!req.session.user) {
-    req.flash('error',  '未登录');
-    return res.redirect('/login');
-  }
-  next();
-}
-
-function checkNotLogin(req, res, next) {
-  if(req.session.user) {
-    res.flash('error', '已登陆');
-    return res.redirect('/');
-  }
-  next();
-}
 
 module.exports = router;

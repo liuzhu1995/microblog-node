@@ -9,10 +9,7 @@ block content
           a(class='btn btn-primary btn-large' href='/login') 登陆
           a(class='btn btn-large' href='/register') 立即注册
     else
-      form(class='form-inline justify-content-center')
-        input(class='form-control mr-sm-2 col-sm-6' type='search' aria-label="Search")
-        button(class='btn btn-primary' type="submit") 发言
-
+      include user.pug
   .row
     .col-lg-4
       h2 丑奴儿 辛弃疾
