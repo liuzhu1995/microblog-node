@@ -1,0 +1,36 @@
+[Mon Aug 19 2019 23:19:37 GMT+0800 (GMT+08:00)]/
+Error: An error for test purposes.
+    at D:\html\Node--BYVoid\microblog\routes\index.js:13:9
+    at Layer.handle [as handle_request] (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\layer.js:95:5)
+    at D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:335:12)
+    at next (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:174:3)
+    at router (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:317:13)
+    at D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:335:12)
+    at next (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:275:10)
+    at D:\html\Node--BYVoid\microblog\app.js:61:3
+[Mon Aug 19 2019 23:19:51 GMT+0800 (GMT+08:00)]/
+Error: An error for test purposes.
+    at D:\html\Node--BYVoid\microblog\routes\index.js:13:9
+    at Layer.handle [as handle_request] (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\layer.js:95:5)
+    at D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:335:12)
+    at next (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:174:3)
+    at router (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:317:13)
+    at D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:335:12)
+    at next (D:\html\Node--BYVoid\microblog\node_modules\express\lib\router\index.js:275:10)
+    at D:\html\Node--BYVoid\microblog\app.js:61:3

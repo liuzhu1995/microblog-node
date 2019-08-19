@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const fs = require('fs'); //文件模块
 const cookieParser = require('cookie-parser');
 const session = require('express-session'); //获取session中间件
 const MongoStore = require('connect-mongo')(session); //获取session储存插件
@@ -11,13 +12,19 @@ const bodyParser  = require('body-parser');
 const db = mongoose();
 const config = require('./config/config');
 
-
+process.env.NODE_ENV = 'production';
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 
 const app = express();
+//创建一个写入流
+const accessLogfile = fs.createWriteStream('access.log', {flags: 'a'});
+const errorLogfile = fs.createWriteStream('error.log', {flags: 'a'});
+app.use(logger('combined', {stream: accessLogfile}));
+
+
 
 
 
@@ -63,12 +70,19 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  if('production' === app.get('env')) {
+    //将错误写入到error.log
+    const meta = `[${new Date()}]${req.url}\n`;
+    errorLogfile.write(`${meta}${err.stack}\n`);
+    next();
+  }
   // render the error page
   res.status(err.status || 500);
   res.render('error');

@@ -8,9 +8,17 @@ block content
         p
           a(class='btn btn-primary btn-large' href='/login') 登陆
           a(class='btn btn-large' href='/register') 立即注册
-    else
-      include user.pug
+    form(method='post' action='/voicing'  class='form-inline justify-content-center' )
+          input(class='form-control mr-sm-2 col-sm-6' name='value' type='text')
+          button(class='btn btn-primary' type="submit") 发言
   .row
+    each item in data
+        div.col-lg-4
+            h2.
+                #[a(href=`/users/${item.user}`)=item.user] 说
+            p
+                small=item.createTime
+                p=item.value
     .col-lg-4
       h2 丑奴儿 辛弃疾
       p 少年不知愁滋味，爱上层楼，爱上层楼。为赋新词强说愁。

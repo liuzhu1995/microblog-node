@@ -10,8 +10,16 @@ const {checkLogin, checkNotLogin} = require('../middleware/common');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-
+  Voicing.find({}, function (err, data) {
+    if(err) {
+      data = [];
+    }
+    console.log(data, 'data');
+    res.render('index', {
+      title: '首页',
+      data
+    });
+  });
 });
 
 //发表信息
